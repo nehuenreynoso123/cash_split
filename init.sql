@@ -1,0 +1,39 @@
+CREATE TABLE IF NOT EXISTS usuarios (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS gastos (
+    id SERIAL PRIMARY KEY,
+    descripcion TEXT NOT NULL,
+    monto DECIMAL(10,2) NOT NULL,
+    fecha DATE DEFAULT CURRENT_DATE
+);
+
+
+CREATE TABLE IF NOT EXISTS deudores (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL
+    descripcion TEXT NOT NULL,
+    monto DECIMAL(10,2) NOT NULL,
+    fecha DATE DEFAULT CURRENT_DATE
+);
+
+CREATE TABLE IF NOT EXISTS caja_inversion (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL
+    descripcion TEXT NOT NULL,
+    monto DECIMAL(10,2) NOT NULL,
+    fecha DATE DEFAULT CURRENT_DATE
+);
+
+CREATE TABLE IF NOT EXISTS caja_reposicion_stock (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL
+    descripcion TEXT NOT NULL,
+    monto DECIMAL(10,2) NOT NULL,
+    fecha DATE DEFAULT CURRENT_DATE
+);
+

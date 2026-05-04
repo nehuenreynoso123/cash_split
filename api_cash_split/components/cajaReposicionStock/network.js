@@ -1,0 +1,40 @@
+import express from "express";
+import controller from "./controller";
+import response from "../../network/response";
+
+const router = express.Router();
+
+router.get("/reposicion-stock", [], listCajaReposicionStock);
+router.post("/reposicion-stock", [], addCajaReposicionStock);
+router.delete("/reposicion-stock/:id", [], removeCajaReposicionStock);
+router.put("/reposicion-stock", [], editCajaReposicionStock);
+
+function listCajaReposicionStock(req, resp, next) {
+  controller
+    .listCajaReposicionStock()
+    .then((data) => response.success(req, resp, data, 201))
+    .catch(next);
+}
+
+function addCajaReposicionStock(req, resp, next) {
+  controller
+    .addCajaReposicionStock(req.body)
+    .then((data) => response.success(req, resp, data, 200))
+    .catch(next);
+}
+
+function editCajaReposicionStock(req, resp, next) {
+  controller
+    .editCajaReposicionStock(req.body)
+    .then((data) => response.success(req, resp, data, 200))
+    .catch(next);
+}
+
+function removeCajaReposicionStock(req, resp, next) {
+  controller
+    .removeCajaReposicionStock(req.params.id)
+    .then((data) => response.success(req, resp, data, 200))
+    .catch(next);
+}
+
+export default router;

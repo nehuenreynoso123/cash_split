@@ -1,0 +1,12 @@
+# Dependency directories
+node_modules/
+node_modules
+postgres_Data/
+postgres_Data
+# dotenv environment variables file
+.env
+./env
+
+.vercel
+
+.init.sql
