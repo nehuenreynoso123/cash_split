@@ -42,3 +42,32 @@ Los Gastos Operativos representan las salidas de dinero necesarias para mantener
 ### 4. Objetivo del Modelo
 
 Este modelo de arquitectura financiera busca proteger al emprendedor del error común de "gastar el costo", permitiendo que el negocio sea **autosustentable** y proporcionando una visión clara de la rentabilidad real en todo momento.
+
+
+/inversiones-note
+├── /components
+│   ├── /productos          // Gestiona el "Total Invertido"
+│   │   ├── controller.js   // Lógica de cálculo de stock y costos
+│   │   ├── network.js      // Rutas: GET /productos, POST /productos
+│   │   └── store.js        // Consultas a la DB de productos
+│   ├── /ventas             // El motor del sistema
+│   │   ├── controller.js   // Lógica de reparto: Ganancia vs Reposición
+│   │   ├── network.js      // Rutas: POST /ventas
+│   │   └── store.js        // Persistencia de transacciones
+│   ├── /gastos             // Gastos operativos
+│   │   ├── controller.js   // Lógica de validación de gastos
+│   │   ├── network.js      // Rutas: GET /gastos, POST /gastos
+│   │   └── store.js        // Persistencia de gastos mensuales
+│   └── /dashboard          // Caja de "Totales"
+│       ├── controller.js   // Orquestador que suma los saldos de todos los stores
+│       └── network.js      // Ruta: GET /resumen-general
+├── /network
+│   ├── routes.js           // El "Hub" que conecta todos los network.js de los componentes
+│   └── response.js         // Estandarización de respuestas (Success / Error)
+├── /db                     // Configuración y conexión a la Base de Datos
+│   └── index.js
+├── /middleware             // Validaciones de seguridad o formatos
+├── server.js               // Punto de entrada de la aplicación (Express setup)
+├── .env                    // Variables de entorno (puertos, DB_URL)
+└── package.json
+
