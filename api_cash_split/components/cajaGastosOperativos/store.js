@@ -1,7 +1,7 @@
 import sql from "../../../store/database";
 
 export async function add({ descripcion, monto }) {
-  await sql`INSERT INTO gastos  (descripcion,monto,fecha) VALUES (${nombre},${descripcion},${monto},NOW())`;
+  await sql`INSERT INTO gastos (descripcion,monto,fecha) VALUES (${descripcion},${monto},NOW())`;
 }
 
 export async function list() {

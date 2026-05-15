@@ -1,16 +1,16 @@
 import { add, list, remove, update } from "./store";
 
-export const addCajaReposicionStock = async ({ body }) => {
+export const addCajaReposicionStock = async (body) => {
   const { nombre, descripcion, monto } = body;
   await add({ nombre, descripcion, monto });
 };
 
-export const editCajaReposicionStock = async ({ body }) => {
+export const editCajaReposicionStock = async (body) => {
   const { nombre, descripcion, monto, fecha } = body;
   await update({ nombre, descripcion, monto, fecha });
 };
 
-export const removeCajaReposicionStock = async ({ id }) => {
+export const removeCajaReposicionStock = async (id) => {
   await remove({ id });
 };
 

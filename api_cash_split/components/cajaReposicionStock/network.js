@@ -12,14 +12,14 @@ router.put("/reposicion-stock", [], editCajaReposicionStock);
 function listCajaReposicionStock(req, resp, next) {
   controller
     .listCajaReposicionStock()
-    .then((data) => response.success(req, resp, data, 201))
+    .then((data) => response.success(req, resp, data, 200))
     .catch(next);
 }
 
 function addCajaReposicionStock(req, resp, next) {
   controller
     .addCajaReposicionStock(req.body)
-    .then((data) => response.success(req, resp, data, 200))
+    .then((data) => response.success(req, resp, data, 201))
     .catch(next);
 }
 

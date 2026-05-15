@@ -1,7 +1,27 @@
-const postCajaGanancia = async () => {};
+import { add, list, remove, update } from "./store";
 
-const putCajaGanancia = async () => {};
+const addVenta = async (body) => {
+  const { nombre, precio, product_id, cantidad } = body;
+  await add({ nombre, precio, product_id, cantidad });
+};
 
-const delCajaGanancia = async () => {};
+const editVenta = async (body) => {
+  const { nombre, precio, product_id } = body;
+  await update({ nombre, precio, product_id });
+};
 
-const getCajaGanancia = async () => {};
+const removeVenta = async (id) => {
+  await remove({ id });
+};
+
+const listVenta = async () => {
+  const listVentas = list();
+  return listVentas;
+};
+
+export default {
+  addVenta,
+  editVenta,
+  removeVenta,
+  listVenta,
+};

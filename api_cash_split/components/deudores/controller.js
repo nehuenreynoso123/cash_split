@@ -1,16 +1,16 @@
 import { add, list, remove, update } from "./store";
 
-export const addDeudores = async ({ body }) => {
+export const addDeudores = async (body) => {
   const { nombre, descripcion, monto } = body;
   await add({ nombre, descripcion, monto });
 };
 
-export const editDeudores = async ({ body }) => {
+export const editDeudores = async (body) => {
   const { nombre, descripcion, monto } = body;
   await update({ nombre, descripcion, monto });
 };
 
-export const removeDeudores = async ({ id }) => {
+export const removeDeudores = async (id) => {
   await remove({ id });
 };
 

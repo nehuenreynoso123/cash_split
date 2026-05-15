@@ -18,4 +18,4 @@ export async function remove({ id }) {
   await sql`DELETE FROM caja_reposicion_stock WHERE id = ${id}`;
 }
 
-export default { add, list, remove, update };
+//export default { add, list, remove, update };
