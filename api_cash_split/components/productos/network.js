@@ -1,13 +1,14 @@
 import express from "express";
 import controller from "./controller";
 import response from "../../network/response";
+import { verifyToken } from "../../middleware/index.js";
 
 const router = express.Router();
 
-router.post("/producto", [], addProducto);
-router.delete("/producto", [], removeProducto);
-router.put("/producto", [], editProducto);
-router.get("/producto", [], listProducto);
+router.post("/producto", [verifyToken], addProducto);
+router.delete("/producto", [verifyToken], removeProducto);
+router.put("/producto", [verifyToken], editProducto);
+router.get("/producto", [verifyToken], listProducto);
 
 function addProducto(req, resp, next) {
   controller
@@ -18,8 +19,8 @@ function addProducto(req, resp, next) {
 
 function removeProducto(req, resp, next) {
   controller
-    .editProducto(req.params.id)
-    .then((data) => response.success(req, resp, data, 201))
+    .removeProducto(req.params.id)
+    .then((data) => response.success(req, resp, data, 200))
     .catch(next);
 }
 

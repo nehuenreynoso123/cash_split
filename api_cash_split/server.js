@@ -4,6 +4,7 @@ import "../store/database";
 import routes from "./routes";
 
 import morgan from "morgan";
+import cors from "cors";
 
 const app = express();
 
@@ -13,6 +14,7 @@ const server = http.createServer(app);
 const port = 3000;
 //const port = config.service.api_cash_split.port
 
+app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

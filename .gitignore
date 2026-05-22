@@ -10,3 +10,6 @@ postgres_Data
 .vercel
 
 .init.sql
+
+# Skill registry
+.atl/

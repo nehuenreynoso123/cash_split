@@ -1,84 +1,78 @@
-## 🧠 Lógica de Negocio: El Sistema de Cajas (Cash Splice)
+# Cash Split
 
-El núcleo de esta aplicación es la separación inteligente del flujo de caja. En lugar de tratar el ingreso como una masa única, el sistema automatiza la división del dinero para garantizar la sostenibilidad del negocio.
+API de gestión de caja con separación inteligente del flujo de dinero para pequeños negocios.
 
-### 1. Definición de Cajas (Patrimonio)
+## Concepto
 
-El sistema gestiona tres estados financieros fundamentales:
+El sistema divide automáticamente el ingreso de cada venta en dos destinos:
 
-* **Total Invertido (Stock):** Representa el valor monetario de la mercadería física. No es liquidez, sino activos. Su valor se calcula como `precio_costo * cantidad`.
-* **Caja de Reposición:** Es una reserva de efectivo destinada exclusivamente a volver a comprar el stock vendido. Asegura que el negocio nunca se descapitalice.
-* **Caja de Ganancias:** Representa la utilidad neta. Es el dinero disponible para sueldos, reinversión de crecimiento o disfrute personal.
+- **Caja de Reposición**: reserva para reponer el stock vendido (basado en el costo del producto)
+- **Caja de Inversión**: refleja el valor del inventario físico restante
 
----
+Esto asegura que el negocio nunca se descapitaliza al gastar dinero que debería reservarse para reposición.
 
-### 2. El Motor de Cálculo: Flujo de Venta
+## Stack
 
-Cuando se registra una venta, el sistema realiza un "splice" (división) automático basado en el costo y el margen:
+- **Runtime**: Node.js con Express 5 (ESM)
+- **Base de datos**: PostgreSQL 16
+- **Dev server**: `tsx watch` (recarga automática)
+- **Autenticación**: JWT + bcryptjs
 
-| Concepto | Cálculo | Acción en el Sistema |
-| :--- | :--- | :--- |
-| **Costo del Producto** | `costo_unitario * cantidad` | Se suma a la **Caja de Reposición**. |
-| **Margen de Ganancia** | `precio_venta - costo_total` | Se suma a la **Caja de Ganancias**. |
-| **Actualización de Activos** | `stock - cantidad` | Se descuenta del **Total Invertido**. |
-
-**Ejemplo Práctico:**
-Vendes un producto a **$3.500** que te costó **$2.000**:
-1.  **$2.000** entran a la *Caja de Reposición* (dinero asegurado para reponer la unidad).
-2.  **$1.500** entran a la *Caja de Ganancias* (tu utilidad).
-3.  El *Total Invertido* baja en **$2.000** porque ese activo ya no está en stock.
-
----
-
-### 3. Gastos Operativos
-
-Los Gastos Operativos representan las salidas de dinero necesarias para mantener la estructura (servicios, impuestos, publicidad, logística).
-
-* **Impacto:** Se registran de forma independiente para calcular la salud financiera.
-* **Métrica Final:** `Ganancia Real = (Caja Ganancias) - (Gastos Operativos)`.
-
----
-
-### 4. Objetivo del Modelo
-
-Este modelo de arquitectura financiera busca proteger al emprendedor del error común de "gastar el costo", permitiendo que el negocio sea **autosustentable** y proporcionando una visión clara de la rentabilidad real en todo momento.
-
-
-# 📁 Estructura del proyecto: inversiones-note
-# 📁 Estructura del proyecto: inversiones-note
+## Estructura del proyecto
 
 ```
-/inversiones-note
-├── /components
-│   ├── /productos          # Gestiona el "Total Invertido"
-│   │   ├── controller.js   # Lógica de cálculo de stock y costos
-│   │   ├── network.js      # Rutas: GET /productos, POST /productos
-│   │   └── store.js        # Consultas a la DB de productos
-│   │
-│   ├── /ventas             # El motor del sistema
-│   │   ├── controller.js   # Lógica de reparto: Ganancia vs Reposición
-│   │   ├── network.js      # Rutas: POST /ventas
-│   │   └── store.js        # Persistencia de transacciones
-│   │
-│   ├── /gastos             # Gastos operativos
-│   │   ├── controller.js   # Lógica de validación de gastos
-│   │   ├── network.js      # Rutas: GET /gastos, POST /gastos
-│   │   └── store.js        # Persistencia de gastos mensuales
-│   │
-│   └── /dashboard          # Caja de "Totales"
-│       ├── controller.js   # Orquestador que suma los saldos de todos los stores
-│       └── network.js      # Ruta: GET /resumen-general
-│
-├── /network
-│   ├── routes.js           # Hub que conecta todos los network.js de los componentes
-│   └── response.js         # Estandarización de respuestas (Success / Error)
-│
-├── /db                     # Configuración y conexión a la Base de Datos
-│   └── index.js
-│
-├── /middleware             # Validaciones de seguridad o formatos
-│
-├── server.js               # Punto de entrada de la aplicación (Express setup)
-├── .env                    # Variables de entorno (puertos, DB_URL)
+cash_split/
+├── api_cash_split/
+│   ├── components/
+│   │   ├── auth/           # Registro e inicio de sesión
+│   │   ├── productos/      # CRUD de productos (stock + precio)
+│   │   ├── ventas/         # Registro de ventas con split automático
+│   │   ├── gastos/         # Gastos operativos
+│   │   ├── deudores/       # Deudores registrados
+│   │   ├── caja_inversion/          # Caja de inversión (stock)
+│   │   ├── caja_reposicion_stock/   # Caja de reposición
+│   │   └── dashboard/      # Resumen de todas las cajas
+│   ├── middleware/          # Verificación JWT
+│   ├── network/            # Rutas centrales y formato de respuesta
+│   └── server.js           # Punto de entrada
+├── store/
+│   └── database.js         # Conexión a PostgreSQL
+├── init.sql                # Esquema de base de datos
+├── config.js               # Configuración de entorno
+├── docker-compose.yml      # Docker Compose (API + DB)
 └── package.json
 ```
+
+## Inicio rápido
+
+```bash
+# Iniciar servicios con Docker
+docker compose up -d
+
+# Iniciar API en modo desarrollo
+npm run api:dev
+```
+
+La API corre en `http://localhost:3000`. Todos los endpoints están bajo `/api` y requieren autenticación JWT excepto `/api/auth/signup` y `/api/auth/signin`.
+
+## Endpoints
+
+| Método | Ruta | Auth | Descripción |
+|--------|------|------|-------------|
+| POST | `/api/auth/signup` | No | Registrar usuario |
+| POST | `/api/auth/signin` | No | Iniciar sesión |
+| GET | `/api/producto` | JWT | Listar productos |
+| POST | `/api/producto` | JWT | Crear producto |
+| PUT | `/api/producto` | JWT | Actualizar producto |
+| DELETE | `/api/producto` | JWT | Eliminar producto |
+| GET | `/api/venta` | JWT | Listar ventas |
+| POST | `/api/venta` | JWT | Crear venta |
+| PUT | `/api/venta` | JWT | Actualizar venta |
+| DELETE | `/api/venta/:id` | JWT | Eliminar venta |
+| GET | `/api/gasto` | JWT | Listar gastos |
+| POST | `/api/gasto` | JWT | Crear gasto |
+| GET | `/api/deudor` | JWT | Listar deudores |
+| POST | `/api/deudor` | JWT | Crear deudor |
+| PUT | `/api/deudor` | JWT | Actualizar deudor |
+| DELETE | `/api/deudor/:id` | JWT | Eliminar deudor |
+| GET | `/api/total-cajas` | JWT | Resumen de todas las cajas |

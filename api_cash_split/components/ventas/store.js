@@ -31,12 +31,12 @@ export async function add({ nombre, precio, product_id, cantidad }) {
 }
 
 export async function list() {
-  const [list] = await sq1`SELECT * FROM ventas`;
+  const [list] = await sql`SELECT * FROM ventas`;
   return list;
 }
 
-export async function update({ nombre, precio, product_id }) {
-  await sql`UPDATE ventas SET nombre=${nombre}, precio=${precio},product_id=${product_id}`;
+export async function update({ id, nombre, precio, product_id }) {
+  await sql`UPDATE ventas SET nombre=${nombre}, precio=${precio},producto_id=${product_id} WHERE id = ${id}`;
 }
 
 export async function remove({ id }) {

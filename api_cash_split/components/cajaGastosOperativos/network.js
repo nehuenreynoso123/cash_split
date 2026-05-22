@@ -1,13 +1,14 @@
 import controller from "./controller";
 import express from "express";
 import response from "../../network/response";
+import { verifyToken } from "../../middleware/index.js";
 
 const router = express.Router();
 
-router.post("/gastos", [], addGastos);
-router.get("/gastos", [], listGastos);
-router.put("/gastos", [], editCajaGastos);
-router.delete("/gastos", [], removeCajaGastos);
+router.post("/gastos", [verifyToken], addGastos);
+router.get("/gastos", [verifyToken], listGastos);
+router.put("/gastos", [verifyToken], editCajaGastos);
+router.delete("/gastos", [verifyToken], removeCajaGastos);
 
 function addGastos(req, resp, next) {
   controller

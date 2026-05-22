@@ -1,13 +1,14 @@
 import controller from "./controller";
 import express from "express";
 import response from "../../network/response";
+import { verifyToken } from "../../middleware/index.js";
 
 const router = express.Router();
 
-router.get("/deudores", [], listDeudores);
-router.delete("/deudores", [], removeDeudores);
-router.post("/deudores", [], addDeudores);
-router.put("/deudores", [], editDeudores);
+router.get("/deudores", [verifyToken], listDeudores);
+router.delete("/deudores", [verifyToken], removeDeudores);
+router.post("/deudores", [verifyToken], addDeudores);
+router.put("/deudores", [verifyToken], editDeudores);
 
 function listDeudores(req, resp, next) {
   controller

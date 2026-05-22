@@ -6,8 +6,8 @@ const addProducto = async (body) => {
 };
 
 const editProducto = async (body) => {
-  const { nombre, precio, stock } = body;
-  await edit({ nombre, precio, stock });
+  const { id, nombre, precio, stock } = body;
+  await edit({ id, nombre, precio, stock });
 };
 
 const listProducto = async () => {

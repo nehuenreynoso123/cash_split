@@ -1,13 +1,14 @@
 import express from "express";
 import controller from "./controller";
 import response from "../../network/response";
+import { verifyToken } from "../../middleware/index.js";
 
 const router = express.Router();
 
-router.get("/venta", [], listVentas);
-router.post("/venta", [], addVenta);
-router.delete("/venta/:id", [], removeVenta);
-router.put("/venta", [], editVenta);
+router.get("/venta", [verifyToken], listVentas);
+router.post("/venta", [verifyToken], addVenta);
+router.delete("/venta/:id", [verifyToken], removeVenta);
+router.put("/venta", [verifyToken], editVenta);
 
 function listVentas(req, resp, next) {
   controller

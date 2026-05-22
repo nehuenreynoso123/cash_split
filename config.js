@@ -1,6 +1,3 @@
-import { config } from "dotenv";
-config();
-
 export default {
   service: {
     api_cash_splice: {

@@ -1,13 +1,14 @@
 import express from "express";
 import controller from "./controller";
 import response from "../../network/response";
+import { verifyToken } from "../../middleware/index.js";
 
 const router = express.Router();
 
-router.get("/reposicion-stock", [], listCajaReposicionStock);
-router.post("/reposicion-stock", [], addCajaReposicionStock);
-router.delete("/reposicion-stock/:id", [], removeCajaReposicionStock);
-router.put("/reposicion-stock", [], editCajaReposicionStock);
+router.get("/reposicion-stock", [verifyToken], listCajaReposicionStock);
+router.post("/reposicion-stock", [verifyToken], addCajaReposicionStock);
+router.delete("/reposicion-stock/:id", [verifyToken], removeCajaReposicionStock);
+router.put("/reposicion-stock", [verifyToken], editCajaReposicionStock);
 
 function listCajaReposicionStock(req, resp, next) {
   controller

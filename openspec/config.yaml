@@ -1,0 +1,49 @@
+# openspec/config.yaml
+schema: spec-driven
+
+context: |
+  Tech stack: JavaScript ESM, Node.js 22, Express 5 beta, PostgreSQL 16 (Docker Compose), JWT auth (jsonwebtoken + bcryptjs), raw SQL via `postgres` tagged templates, tsx for dev watch
+  Architecture: Component-based (network/controller/store per domain), 9 components (auth, cajaInversion, cajaGastosOperativos, deudores, cajaReposicionStock, ventas, productos, dashboard, status), Cash Splice business model (sale split into reposicion + profit), Express router at /api
+  Testing: No test runner configured (`test` script is placeholder), no test framework installed, no CI test step
+  Style: ESM modules, 3-file component pattern, { error, status, body } response envelope, raw SQL in store files
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+    - Reference known bugs from AGENTS.md to avoid regressions
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+    - Document affected component (network/controller/store) and DB table
+  design:
+    - Include sequence diagrams for complex flows in Mermaid
+    - Document architecture decisions with rationale
+    - Consider the Cash Splice business model implications
+  tasks:
+    - Group by phase, use hierarchical numbering
+    - Keep tasks completable in one session
+  apply:
+    - Follow existing 3-file component pattern
+    - Fix known bugs in touched files (per AGENTS.md)
+    tdd: false
+    test_command: ""
+  verify:
+    test_command: ""
+    build_command: ""
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas
+
+testing:
+  strict_tdd: false
+  runner: none
+  reason: "No test framework or runner is configured. The package.json `test` script is a placeholder that exits with code 1. Testing must be introduced explicitly as a change."
+  layers:
+    unit: { available: false, tool: "--" }
+    integration: { available: false, tool: "--" }
+    e2e: { available: false, tool: "--" }
+  coverage: { available: false, command: "--" }
+  quality:
+    linter: { available: false, command: "--" }
+    type_checker: { available: false, command: "--" }
+    formatter: { available: false, command: "--" }

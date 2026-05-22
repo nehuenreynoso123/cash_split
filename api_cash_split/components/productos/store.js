@@ -9,8 +9,8 @@ export async function add({ nombre, precio, stock }) {
   await sql`INSERT INTO productos (nombre,precio,stock) VALUES (${nombre},${precio},${stock})`;
 }
 
-export async function edit({ nombre, precio, stock }) {
-  await sql`UPDATE productos SET (nombre=${nombre},precio=${precio},stock=${stock})`;
+export async function edit({ id, nombre, precio, stock }) {
+  await sql`UPDATE productos SET nombre=${nombre}, precio=${precio}, stock=${stock} WHERE id = ${id}`;
 }
 
 export async function remove({ id }) {

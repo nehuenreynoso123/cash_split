@@ -1,13 +1,14 @@
 import controller from "./controller";
 import express from "express";
 import response from "../../network/response";
+import { verifyToken } from "../../middleware/index.js";
 
 const router = express.Router();
 
-router.post("/inversion", addInversion);
-router.delete("/inversion/:id", delInversion);
-router.put("/inversion", editInversion);
-router.get("/inversion", getCajaInversion);
+router.post("/inversion", [verifyToken], addInversion);
+router.delete("/inversion/:id", [verifyToken], delInversion);
+router.put("/inversion", [verifyToken], editInversion);
+router.get("/inversion", [verifyToken], getCajaInversion);
 
 function addInversion(req, resp, next) {
   controller
