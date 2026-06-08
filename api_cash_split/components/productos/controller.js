@@ -12,7 +12,8 @@ const editProducto = async (body) => {
 
 const listProducto = async () => {
   const listProductos = await list();
-  return listProductos;
+  console.log(listProductos);
+  return { listProductos };
 };
 
 const removeProducto = async (id) => {

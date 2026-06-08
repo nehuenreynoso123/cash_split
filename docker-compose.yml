@@ -11,7 +11,18 @@ services:
     ports:
       - 3000:3000
     restart: always
-  
+
+  frontend:
+    build:
+      context: ../front-cash-split
+      dockerfile: Dockerfile
+    container_name: front_cash_split
+    ports:
+      - "8080:80"
+    restart: always
+    depends_on:
+      - api_cash_splice
+
   db:
     image: postgres:16-alpine
     container_name: postgres_db

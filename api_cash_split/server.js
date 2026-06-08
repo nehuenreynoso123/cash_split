@@ -10,9 +10,10 @@ const app = express();
 
 import { errors } from "./network/error";
 
+import config from "../config.js";
+
 const server = http.createServer(app);
-const port = 3000;
-//const port = config.service.api_cash_split.port
+const port = Number(config.service.api_cash_splice.PORT);
 
 app.use(cors());
 app.use(morgan("dev"));

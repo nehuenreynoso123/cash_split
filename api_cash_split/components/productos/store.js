@@ -1,8 +1,9 @@
 import sql from "../../../store/database";
 
 export async function list() {
-  const [list] = await sql`SELECT * FROM productos`;
-  return list;
+  const list = await sql`SELECT * FROM productos`;
+  console.log(list);
+  return { list };
 }
 
 export async function add({ nombre, precio, stock }) {

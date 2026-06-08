@@ -5,7 +5,7 @@ export async function add({ descripcion, monto }) {
 }
 
 export async function list() {
-  const [gastos] = await sql`SELECT descripcion, monto , fecha FROM gastos`;
+  const gastos = await sql`SELECT id, descripcion, monto, fecha FROM gastos ORDER BY fecha DESC, id DESC`;
   return gastos;
 }
 export async function remove({ id }) {
@@ -13,8 +13,7 @@ export async function remove({ id }) {
 }
 
 export async function update({ descripcion, monto, id }) {
-  const [gastos] =
-    sql`UPDATE gastos SET descripcion = ${descripcion} , monto=${monto} WHERE id=${id}`;
+  await sql`UPDATE gastos SET descripcion = ${descripcion} , monto=${monto} WHERE id=${id}`;
 }
 
 //export default { list, add, remove, update };

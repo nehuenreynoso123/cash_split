@@ -13,7 +13,7 @@ export const removeCajaGastos = async (id) => {
   await remove({ id });
 };
 export const getCajaGastos = async () => {
-  const listGastos = list();
+  const listGastos = await list();
   return { listGastos };
 };
 

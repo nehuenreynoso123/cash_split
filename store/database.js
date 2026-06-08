@@ -1,11 +1,12 @@
 import postgres from "postgres";
+import config from "../config.js";
 
 const sql = postgres({
-  host: "db",
-  port: 5432,
-  database: "cash_db",
-  username: "user",
-  password: "password",
+  host: config.db.HOST,
+  port: Number(config.db.PORT),
+  database: config.db.NAME,
+  username: config.db.USER,
+  password: config.db.PASSWORD,
 });
 
 // En lugar de await directo, creamos una función de prueba
