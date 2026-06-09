@@ -1,7 +1,7 @@
 import sql from "../../../store/database";
 
 export async function listTotalCajas() {
-  const [result] = await sql`SELECT 
+  const result = await sql`SELECT 
     p.id AS producto_id,
     p.nombre AS producto,
     COALESCE(SUM(v.cantidad), 0) AS unidades_vendidas,

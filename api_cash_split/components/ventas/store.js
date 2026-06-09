@@ -31,7 +31,7 @@ export async function add({ nombre, precio, product_id, cantidad }) {
 }
 
 export async function list() {
-  const [list] = await sql`SELECT * FROM ventas`;
+  const list = await sql`SELECT * FROM ventas`;
   return list;
 }
 

@@ -15,7 +15,7 @@ const removeVenta = async (id) => {
 };
 
 const listVenta = async () => {
-  const listVentas = list();
+  const listVentas = await list();
   return listVentas;
 };
 

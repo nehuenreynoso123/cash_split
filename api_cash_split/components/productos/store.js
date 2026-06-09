@@ -1,9 +1,11 @@
 import sql from "../../../store/database";
 
-export async function list() {
-  const list = await sql`SELECT * FROM productos`;
-  console.log(list);
-  return { list };
+export async function list({ activo } = {}) {
+  const list =
+    activo === false
+      ? await sql`SELECT * FROM productos WHERE activo = false`
+      : await sql`SELECT * FROM productos WHERE activo = true`;
+  return list;
 }
 
 export async function add({ nombre, precio, stock }) {
@@ -15,5 +17,5 @@ export async function edit({ id, nombre, precio, stock }) {
 }
 
 export async function remove({ id }) {
-  await sql`DELETE FROM productos WHERE id=${id}`;
+  await sql`UPDATE productos SET activo = false WHERE id=${id}`;
 }

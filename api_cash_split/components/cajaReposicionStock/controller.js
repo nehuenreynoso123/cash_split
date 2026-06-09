@@ -6,8 +6,8 @@ export const addCajaReposicionStock = async (body) => {
 };
 
 export const editCajaReposicionStock = async (body) => {
-  const { nombre, descripcion, monto, fecha } = body;
-  await update({ nombre, descripcion, monto, fecha });
+  const { id, nombre, descripcion, monto } = body;
+  await update({ id, nombre, descripcion, monto });
 };
 
 export const removeCajaReposicionStock = async (id) => {

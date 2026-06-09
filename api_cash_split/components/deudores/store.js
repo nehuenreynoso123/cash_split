@@ -1,8 +1,7 @@
 import sql from "../../../store/database";
 
 export async function list() {
-  const [deudores] =
-    await sql`SELECT nombre,descripcion,monto,fecha FROM deudores`;
+  const deudores = await sql`SELECT id, nombre, descripcion, monto, fecha FROM deudores ORDER BY fecha DESC, id DESC`;
   return deudores;
 }
 

@@ -12,7 +12,7 @@ export async function remove({ id }) {
 }
 
 export async function list() {
-  const [inversion] = await sql`SELECT * FROM caja_inversion`;
+  const inversion = await sql`SELECT * FROM caja_inversion`;
   return inversion;
 }
 
