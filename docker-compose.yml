@@ -2,7 +2,7 @@ services:
 
   api_cash_splice:
     build: .
-    image: node:22-alpine
+    image: cash_split-api:latest
     container_name: api_cash_splice
     volumes:
       - "${VOLUME_FOLDER_BACK}:/usr/src/app" # Cambié service por app para que coincida con tu Dockerfile

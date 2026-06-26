@@ -2,10 +2,18 @@ import sql from "../../../store/database";
 
 export async function add({ nombre, precio, product_id, cantidad }) {
   return await sql.begin(async (sql) => {
+    // 0. Obtener el costo del producto
+    const [producto] = await sql`
+            SELECT precio FROM productos WHERE id = ${product_id}
+        `;
+
+    const costo_total = Number(producto.precio) * Number(cantidad);
+    const ganancia = Number(precio) - costo_total;
+
     // 1. Registrar la venta
     const [venta] = await sql`
-            INSERT INTO ventas (nombre,precio,producto_id, cantidad)
-            VALUES (${nombre},${precio},${product_id}, ${cantidad})
+            INSERT INTO ventas (nombre,precio,producto_id, cantidad, ganancia)
+            VALUES (${nombre},${precio},${product_id}, ${cantidad}, ${ganancia})
             RETURNING id
         `;
 

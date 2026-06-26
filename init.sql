@@ -54,5 +54,6 @@ CREATE TABLE ventas (
 	precio DECIMAL(10,2) NOT NULL,
 	producto_id INTEGER REFERENCES productos(id),
 	cantidad INTEGER DEFAULT 1,
+	ganancia DECIMAL(10,2) DEFAULT 0,
 	fecha DATE DEFAULT CURRENT_DATE
 );
